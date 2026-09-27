@@ -1,30 +1,77 @@
-# Home automation platform
+# Home Automation Editor
 
-*Automatically synced with your [v0.app](https://v0.app) deployments*
+An IDE-style web editor for designing and simulating smart-home setups. Lay out a floor plan, drop in devices (lights, thermostats, locks, cameras, speakers, TVs), and run a simulation to preview how your home automation behaves — all in a slick dark UI with resizable panels.
 
-[![Deployed on Vercel](https://img.shields.io/badge/Deployed%20on-Vercel-black?style=for-the-badge&logo=vercel)](https://vercel.com/gileb64375-5584s-projects/v0-home-automation-platform)
-[![Built with v0](https://img.shields.io/badge/Built%20with-v0.app-black?style=for-the-badge)](https://v0.app/chat/projects/RCi9lvlVwoD)
+Originally generated with [v0.app](https://v0.app), now maintained as a standalone open-source project.
 
-## Overview
+## Features
 
-This repository will stay in sync with your deployed chats on [v0.app](https://v0.app).
-Any changes you make to your deployed app will be automatically pushed to this repository from [v0.app](https://v0.app).
+- **IDE-style layout** — collapsible left, right, and bottom panels with resizable splits
+- **Floor-plan canvas** — zoom, pan, and rotate the plan; select and position devices
+- **Device palette** — lights, thermostats, locks, cameras, speakers, TVs (Lucide icons)
+- **Simulation mode** — play button toggles a simulated "running" state
+- **Searchable device library** — filter devices from the palette
+- **Dark/light mode** — theme toggle built in
+- **Editor chrome** — undo/redo, save, tabs, settings, help, docs panels
+- **Static export ready** — builds to plain static files, deployable anywhere
+
+## Tech Stack
+
+- [Next.js](https://nextjs.org) 15 (App Router, `output: 'export'` static export)
+- [React](https://react.dev) 19
+- [TypeScript](https://www.typescriptlang.org)
+- [Tailwind CSS](https://tailwindcss.com) + [shadcn/ui](https://ui.shadcn.com) (Radix primitives)
+- [Framer Motion](https://motion.dev) — animations
+- [Lucide](https://lucide.dev) icons
+- No backend, no database, no API routes — fully client-side demo UI
+
+## Quick Start
+
+```bash
+# install dependencies
+npm install
+# or: pnpm install
+
+# run the dev server
+npm run dev
+# open http://localhost:3000
+
+# build a static export (writes to ./out)
+npm run build
+```
+
+## Project Structure
+
+```
+app/
+  page.tsx            # main editor: panels, floor plan, device palette
+  layout.tsx          # root layout, theme provider
+  loading.tsx         # loading state
+  globals.css         # Tailwind + custom styles
+components/
+  theme-provider.tsx
+  ui/                 # shadcn/ui primitives (resizable, tabs, scroll-area, ...)
+lib/
+  utils.ts            # cn() helper
+public/               # static assets
+```
+
+## Environment Variables
+
+None — the app is a fully client-side demo and needs no configuration.
 
 ## Deployment
 
-Your project is live at:
+- **GitHub Pages** (current): the site is statically exported (`output: 'export'` in `next.config.mjs`) and served from the `gh-pages` branch. Because GitHub Pages serves project sites from a subpath (`/<repo>/`), `next.config.mjs` sets `basePath: '/home-automation-platform'`. **Remove `basePath` when deploying to a root domain or Vercel.**
+- **Vercel**: import the repo, `npm run build` works out of the box (remove `basePath` first).
+- **Any static host**: serve the `./out` directory after `npm run build`.
 
-**[https://vercel.com/gileb64375-5584s-projects/v0-home-automation-platform](https://vercel.com/gileb64375-5584s-projects/v0-home-automation-platform)**
+Live demo: https://girishlade111.github.io/home-automation-platform/
 
-## Build your app
+## Security Note
 
-Continue building your app on:
+Next.js is pinned to **15.2.8**, which includes patches for CVE-2025-55182 (React2Shell RCE) and related advisories affecting older 15.2.x releases. Keep it updated.
 
-**[https://v0.app/chat/projects/RCi9lvlVwoD](https://v0.app/chat/projects/RCi9lvlVwoD)**
+---
 
-## How It Works
-
-1. Create and modify your project using [v0.app](https://v0.app)
-2. Deploy your chats from the v0 interface
-3. Changes are automatically pushed to this repository
-4. Vercel deploys the latest version from this repository
+Built by Girish Lade — [ladestack.in](https://ladestack.in)
